@@ -9,6 +9,8 @@ function Login() {
         const login = await axios.post("http://localhost:3001/user/login", data);
         if (login?.data?.status) {
             localStorage.setItem("token", login?.data?.token)
+            localStorage.setItem("role", login?.data?.data?.role)
+            localStorage.setItem("userId", login?.data?.data?._id)
             Swal.fire({
                 title: login?.data?.message,
                 icon: "success",
@@ -16,7 +18,7 @@ function Login() {
                 showConfirmButton: false
             })
             setTimeout(() => {
-                navigate("/product-create")
+                navigate("/appointments")
                 window.location.reload()
             }, 2000);
         }
